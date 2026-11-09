@@ -1,9 +1,16 @@
 project:
   type: website
-  output-dir: docs
+  output-dir: _site
+  post-render:
+    - python3 scripts/publish-site.py
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+    - "teaching/**/*.qmd"
 
 website:
   title: "Jasper Yang"
+  site-url: "https://yangjasp.github.io/site/"
   description: "Jasper Yang's personal site"
   navbar:
     right:

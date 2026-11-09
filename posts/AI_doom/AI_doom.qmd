@@ -1,0 +1,25 @@
+---
+title: "Some thoughts on AI and the Future of Statistics"
+draft: true
+preview: NULL
+author: "Jasper Yang"
+date: 2-5-2025
+categories: 
+---
+
+*This post contains alot of hot takes and mostly anecdotal evidence. I sincerely hope these takes age poorly, but I decided to put them here as a gift to my future self.*
+
+It has been a while since I last posted here, but . I am now a second-year graduate student in biostatistics at the University of Washington. As is the graduate student rite of passage, I've been in an existential crisis
+
+
+When I was applying to PhD programs in statistics three years ago, ChatGPT wasn’t around. I had never heard the acronym LLM. AI felt like some far off idea that only crossed my mind during frustrating interactions with “AI chat bots” that seemed incredibly unintelligent. I applied to get a PhD in statistics because it felt like the perfect combination of my academic interests. I love math, problem solving, decision theory, philosophy, and I’m also driven by the many ways in which statistics can help society. I wanted to study it because
+
+Three years later, AI is everywhere. Like many others, I was skeptical of its utility at first. It was clearly useful, but between the hallucinations, astoundingly bad arithmetic, and … I believed the that it was no more than a stochastic parrot. During my first year at UW, I liked to joke around the department that as soon as someone decided to develop a statistics specific LLM (statGPT), our job prospects would be toast. “Just as ChatGPT” was a always met with laughs, and our professors told us not to trust it because its probably just spitting back garbage from StackOverflow. But here we are less than a year later, and every single person in my department is using it for work, from professors to students to staff…. I’m in the most difficult classes of my life, spending nearly every waking hour working through textbooks to understand theorems, proofs, and papers that lay out modern statistics but I simply can’t fight off the feeling that I’m [metaphor]. 
+
+[section for in case you don’t believe me check out these links]
+
+The main reasons I am an AI doomer are as follows:
+
+Pardon my dramatic tone here, but the more I read, the more it becomes clear that we are in the midst of a revolution. Yet so many people aren’t aware of it or are ignoring it. Most people I talk to point just point out the mistakes that the free version of ChatGPT still makes and claim without evidence that it would be impossible for a computer to come up with new ideas. But aren’t our brains just fancy computers? And we can’t read textbooks in less than a second. Plus, there is already evidence that these LLMs are synthesizing “novel” ideas (is anything idea novel anyway?) and we are only at the start of this revolution. The way I see it, thinking/problem solving are on the brink of becoming obsolete skills. Of course not entirely, but on the level of arithmetic as a skill now that calculators exist. The most conservative case I see is ai never becomes superintelligent and somehow hits a steep plateau, but even in its current state once the world catches up to its capabilities human thinkers will be hardly more than ai fact checkers. 
+
+So since being dramatic is the theme of this post, I’ll finish by sharing the thought that I just can’t shake off - the thought that is : I feel like I’m getting a PhD in arithmetic at the dawn of calculators. And it’s a real shame because I love my arithmetic.

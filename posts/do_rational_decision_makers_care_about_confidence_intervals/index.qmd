@@ -1,0 +1,117 @@
+---
+title: "Do rational decision makers care about confidence intervals?"
+draft: true
+preview: NULL
+author: "Jasper Yang"
+date: 5-15-2026
+categories: 
+---
+
+The central goal of statistics is to establish procedures for estimating unknown quantities and reporting uncertainty about these estimates. Confidence intervals are the default tool for doing so: they are
+used to express uncertainty about an unknown parameter by reporting a range of
+values that are, in some sense, compatible with the observed data. This ability
+to quantify uncertainty is often treated as one of the defining contributions
+of statistics: rather than returning only a point estimate or prediction, a
+statistical analysis also describes how much uncertainty remains.
+
+There is good reason for this emphasis. Confidence intervals are interpretable,
+widely recognized, and deeply embedded in both statistical theory and applied
+reporting. They provide a common language for communicating the precision of an
+estimate and for distinguishing strong empirical evidence from weak empirical
+evidence.
+
+But their centrality also raises a question: are confidence intervals always
+the object we ultimately need? In many settings, the goal of analysis is not
+just to describe uncertainty about a parameter, but to make a decision. If the
+decision depends on a specific function of the unknown distribution, then the
+role of statistical inference may be better understood as helping us choose an
+action under uncertainty. From this perspective, confidence intervals remain
+useful, but they may not be the endpoint of the analysis.
+
+## Rational decision making
+
+Von Neumann and Morgenstern (1945) laid a foundation for rational decision making, showing that if a decision maker's preferences satisfy certain axioms, then there exists a utility function that the decision maker seeks to maximize in expectation. Let us suppose that these axioms hold and move forward with this standard, [albeit arguably simplistic](https://www.lesswrong.com/s/NBDFAKt3GbFwnwzQF/p/RcZCwxFiZzE6X7nsv), notion of a rational decision maker as someone who takes actions that maximize the expectation of a well-defined utility function. 
+
+To formalize this idea, we use a standard framework from modern day decision theory that is slightly more general than the NM setup. That is, given a set of possible actions $\mathcal{A}$, a set of possible states of the world $\mathcal{S}$, and a utility function $u: \mathcal{A} \times \mathcal{S} \to \mathbb{R}$, a rational decision maker chooses an action $a^* \in \mathcal{A}$ such that 
+$$a^* = \arg\max_{a \in \mathcal{A}} \mathbb{E}[u(a, s)].$$
+Recall that expectation $\mathbb{E}$ is just an integral, here over the probability distribution of the states of the world. Hence,
+$$
+\mathbb{E}[u(a,s)] = \int_{\mathcal{S}} u(a, s) dP(s),
+$$
+where $P$ is a probability measure for states of the world. 
+
+This setup so far is purely decision-theoretic. If $P$ were known exactly, as is assumed in the classical NM setup, then the optimal action would be determined by the expected-utility criterion. In practice, however, $P$ is rarely known. This is where statistics enters. It provides tools for learning $P$, or the decision-relevant features
+of $P$, from data.
+
+Here some care is needed. The probability distribution $P$ appearing in the
+decision problem is a distribution over states of the world. The data that one may use to learn about $P$
+are usually observations from an observed-data distribution, say $Q$. In
+simple settings, $Q$ may be the same as $P$. More generally, the observed
+data may reveal only partial information about the decision-relevant state of
+the world, and additional modeling or identification assumptions are needed to
+connect $Q$ to the features of $P$ that determine expected utility.
+
+## A working example
+Let's set up a simple example, for now staying away from causal inference (which allows our action to impact the state of the world). Suppose that I am deciding whether to bring my umbrella to school tomorrow, so $\mathcal{A} = \{0,1\}$, with $a= 1$ representing the action of me bringing the umbrella. The state of the world is how many centimeters of rain occur tomorrow, so $\mathcal{S} = \mathbb{R}^+$, and my utility function is
+$$
+u(a, s) = -a \cdot c - (1-a) \cdot s,
+$$
+where $c$ represents the utility I lose by having to carry my umbrella around. In this case, the expected utility of bringing the umbrella is
+$$
+\mathbb{E}[u(a,s)] = -a \cdot c - (1-a) \cdot \int_{\mathcal{S}} s dP(s) = -a \cdot c - (1-a) \cdot \mathbb{E}[s],
+$$
+so the rational action is to bring the umbrella if and only if $\mathbb{E}[s] \geq c$. In other words, I should bring my umbrella if the expected amount of rain is greater than or equal to the cost of carrying the umbrella, and the optimal action $a^*$ can be expressed as
+
+\begin{equation}\label{eq:a*}
+a^* = \mathbb{I}[\mathbb{E}[s] \geq c].
+\emd{equation}
+
+This action, of course, is unknown in the practical setting where $\mathbb{E}[s]$ is unknown. We need to estimate $\mathbb{E}[s]$ from data, and a natural idea is to account for the uncertainty in this estimate when making our decision.
+
+::: {.callout-note}
+Determinists may object to this framework by pointing out that $P$ itself, and hence $\mathbb{E}[s]$, is poorly defined here because there is a fixed amount of rain that will occur tomorrow, we just don't know what it is. NM do advocate for a frequentist notion of probability, which says that $P$ reflects distribution of inches of rain if the day were to be repeated under identical observed initial conditions. This notion is sometimes hard to imagine, but it is undeniably useful, for instance to describe the distribution of many repeated coin flips even though each flip is essentially deterministic through laws of physics. However, interpreting \$P$ as a subjective probability distribution that represents beliefs about the amount of rain tomorrow is not a problem for the this general framework. In fact, Savage (1954) and and many modern day statisticians advocate for it's necessity.
+:::
+
+### Enter: statistics
+
+We have now described a notion of rationality that is, broadly speaking, agnostic to interpretations of probability as objective or subjective. Further, we have shown that rational decisions depend on (a functional of) distribution $P$, which is unknown in practice, hence motivating the use of statistics. 
+
+In our simple working example, the property of $P$ that is relevant to our decision problem is $\mathbb{E}[s]$. Suppose that we have access to data from $P$, for instance historical rain records, to which we can apply a standard statistical procedure to generate an estimate for the mean. Call this estimate $\hat{\mu}_s$ and a corresponding confidence interval $[\hat{\mu}_s - \delta, \hat{\mu}_s + \delta]$ for some $\delta > 0$. For now, assume the confidence interval is exact in finite samples (never true in real life). Then, 
+$$
+\mathbb{P}(\hat{\mu}_s - \delta \leq \mathbb{E}[s] \leq \hat{\mu}_s + \delta) = 1 - \alpha,
+$$
+
+Intuitively, the estimated mean is useful. A natural way to choose an action would then be based on the plug-in
+
+$$
+\hat{a}^* = \mathbb{I}[\hat{\mu}_s \geq c].
+$$
+
+Intuitively, the confidence intervals provide us with a summary of the uncertainty we have about $\hat{\mu}_s$. But their relevance for the decision problem is less clear. Heuristically, you could say that if the confidence interval contains $c$, then we are less certain about the optimality of our decision and should maybe try to collect more data. 
+
+But how do we know this is a good approach? A natural metric to evaluate our approach is through its \textbf{regret}, which is defined as
+$$r(a) = \mathbb{E}[u(a^*, s)] - \mathbb{E}[u(a, s)].$$
+In other words, In words, the regret of action $a$ is the expected utility lost by taking
+$a$ instead of the optimal action $a^*$. In this simple example, if
+$\mu_s=\mathbb{E}[S]$, then
+$$
+    r(a)
+    =
+    \max\{-c,-\mu_s\}
+    -
+    \{-ac-(1-a)\mu_s\}.
+$$
+Thus $r(a)=0$ when $a=a^*$, while $r(a)=|\mu_s-c|$ when $a\neq a^*$.
+
+
+
+Let's make a quick detour and talk about regret. Regret is defined as 
+
+This motivates the most fundamental estimation problem in statistics: estimating a mean. Suppose we have access to historical rain data,
+
+
+I have been taught to believe that statistics in a fundamental tool for rational decision making because it allows us to estimate the probability distribution $P$ over states of the world, and thus to compute the expected utility of different actions. In particular, confidence intervals are often presented as a crucial component of statistical inference, providing a range of plausible values for an unknown parameter based on observed data.
+
+We are often taught that statistics is the holy grail of rational decision making under uncertainty, and in the same breath that confidence intervals are a central element 
+
+This post has focused on the role of statistics in rational decision making. This is the role of statistics that excites me most, but many will argue it is not the only role. An argument I hear alot is that science is the important role for statistics, and knowledge about scientific quantities (like the) are useful in their own right outside of a decision problem. I can sympathize with this view, but the point of knowledge is to use it, and this means that people will impose their own utility functions on scientifically reported quantities. This means that the estimation procedures are no longer necessarily optimal! One example of this as an issue is that in statistics a common criterion for optimality of an estimator is squared error loss. One would be hard pressed to find a person who's utility function for any problem is exactly squared error loss, yet so many important summaries about meaningful quantities in the world are chosen to minimize a squared error loss criterion. 

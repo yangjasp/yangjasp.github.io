@@ -8,7 +8,7 @@ pubs_update_start
 
 ### Statistical Methods
 
-* **Yang, JB** , Shepherd BE, Lumley T, Shaw PA (2025). [Optimal two-phase survey designs for generalized raking with multiple parameters of interest](https://doi.org/10.48550/arXiv.2507.16945). *ArXiv pre-print*.
+* **Yang, JB** , Shepherd BE, Lumley T, Shaw PA (2026). [Optimal two-phase survey designs for generalized raking with multiple parameters of interest](https://doi.org/10.1002/sim.70786). *Statistics in Medicine*.
 
 * **Yang, JB** , Lumley T, Shepherd BE, Shaw PA (2025). [Improving optimal subsampling through stratification](https://doi.org/10.48550/arXiv.2512.20837). *ArXiv pre-print*.
 

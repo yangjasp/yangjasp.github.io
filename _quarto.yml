@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - site/index.html
   post-render:
     - python3 scripts/publish-site.py
   render:
